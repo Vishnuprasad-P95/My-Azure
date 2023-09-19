@@ -1,0 +1,17 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rgName": {
+            "value": "RG-VM-DEVOPS"
+        },
+        "rgLocation": {
+            "value": "eastus"
+        },
+        "tags": {
+            "value": {
+                "billing_reference": "my-poc"
+            }
+        }
+    }
+}
