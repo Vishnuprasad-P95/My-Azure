@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "webAppName": {
+            "value": "vishnusweb001"
+        },
+        "hostingPlanName": {
+            "value": "AZ_PLAN_001"
+        },
+        "skuName": {
+            "value": "F1"
+        },
+        "resourceGroupName":{
+            "value":"RG-WEBAPP-DEVOPS"
+        }
+    }
+}
