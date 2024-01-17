@@ -6,34 +6,19 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-# Read paths and versions from the config file
+# Read versions and paths from the config file
 while read -r line; do
     # Skip empty lines and lines starting with #
     if [[ -n "$line" && ! "$line" =~ ^\s*# ]]; then
-        # Extract path and version from each line
-        path=$(echo "$line" | awk '{print $1}')
-        version=$(echo "$line" | awk '{print $2}')
-
-        # Check if path and version are not empty
-        if [ -n "$path" ] && [ -n "$version" ]; then
-            # Check if the path exists
-            if [ -d "$path" ]; then
-                # Delete JRE path if version is not provided
-                if [ -z "$version" ]; then
-                    rm -rf "$path"
-                    echo "Deleted JRE path: $path"
-                fi
-            else
-                echo "Error: Path not found: $path"
-            fi
-
-            # Uninstall JRE using rpm if version is provided
-            if [ -n "$version" ]; then
-                rpm -e "jre$version"
-                echo "Uninstalled JRE version $version using rpm from: $path"
-            fi
+        # Check if the line is a version or a path
+        if [[ "$line" =~ ^[0-9.]+$ ]]; then
+            # Uninstall JRE using rpm if it's a version
+            rpm -e "jre$line"
+            echo "Uninstalled JRE version $line using rpm"
         else
-            echo "Error: Invalid line in config file: $line"
+            # Delete JRE path if it's a path
+            rm -rf "$line"
+            echo "Deleted JRE path: $line"
         fi
     fi
 done < "$1"
