@@ -16,9 +16,13 @@ while read -r line; do
             rpm -e "jre$line"
             echo "Uninstalled JRE version $line using rpm"
         else
-            # Delete JRE path if it's a path
-            rm -rf "$line"
-            echo "Deleted JRE path: $line"
+            # Verify that the path exists before attempting to delete
+            if [ -d "$line" ]; then
+                rm -rf "$line"
+                echo "Deleted JRE path: $line"
+            else
+                echo "Error: Path not found: $line"
+            fi
         fi
     fi
 done < "$1"
