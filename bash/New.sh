@@ -6,6 +6,12 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
+# Log file name with timestamp
+log_file="remove_jre_$(date '+%Y%m%d%H%M%S').log"
+
+# Redirect stdout and stderr to the log file
+exec > >(tee -a "$log_file") 2>&1
+
 # Read versions and paths from the config file
 while read -r line; do
     # Skip empty lines and lines starting with #
